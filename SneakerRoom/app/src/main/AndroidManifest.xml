@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sneakerroom">
 
     <application
@@ -17,6 +18,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".DashBoard"> </activity>
+        <activity android:name=".ViewProfile"
+            tools:ignore="Instantiatable"> </activity>
+        <activity android:name=".SignUp"
+            tools:ignore="Instantiatable"> </activity>
+        <activity android:name=".SignIn"
+            tools:ignore="Instantiatable"> </activity>
+        <activity android:name=".SearchShoe"
+            tools:ignore="Instantiatable"> </activity>
+        <activity android:name=".SearchLocation"
+            tools:ignore="Instantiatable"> </activity>
+        <activity android:name=".SearchProfile"
+            tools:ignore="Instantiatable"> </activity>
+
     </application>
 
 </manifest>
