@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SneakerRoom</string>
+    <string name="view_profile">View Profile</string>
+    <string name="search_shoe">Search Shoe</string>
+    <string name="seach_location">Search Location</string>
+    <string name="search_profile">Search Profile</string>
+    <string name="dash_welcome">Welcome to Your Dashboard</string>
+    <string name="view_profile_welcome">Welcome to Your Profile</string>
+    <string name="profile_name">Name:</string>
 </resources>
