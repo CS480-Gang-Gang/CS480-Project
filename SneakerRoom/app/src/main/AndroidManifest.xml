@@ -18,15 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewProfile"> </activity>
-        <activity android:name=".SignUp"
-            tools:ignore="Instantiatable"> </activity>
-        <activity android:name=".SignIn"
-            tools:ignore="Instantiatable"> </activity>
         <activity android:name=".SearchShoe"
             tools:ignore="Instantiatable"> </activity>
         <activity android:name=".SearchLocation"> </activity>
-        <activity android:name=".SearchProfile"
-            tools:ignore="Instantiatable"> </activity>
 
     </application>
 
