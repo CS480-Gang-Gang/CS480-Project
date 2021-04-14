@@ -44,13 +44,13 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
                 Intent i1 = new Intent(this, ViewProfile.class);
                 startActivity(i1);
                 break;
-
+/*
             case R.id.search_profile_B:
                 //Intent to pull up new class
                 Intent i2 = new Intent(this, SearchProfile.class);
                 startActivity(i2);
                 break;
-
+*/
             case R.id.search_shoe_B:
                 //Intent to place a call
                 Intent i3 = new Intent(this, SearchShoe.class);

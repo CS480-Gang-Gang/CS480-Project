@@ -24,12 +24,11 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     private Button searchShoebtn;
     private ListView shoeList;
     private ArrayAdapter<String> adapt;
-    private ArrayList<String> shoes;
     private String shoeN = null;
+    ArrayList<String> returnList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_shoe_layout);
 
@@ -38,14 +37,11 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         shoeList = (ListView)findViewById(R.id.listShoe);
 
         searchShoebtn.setOnClickListener(this);
-
-        adapt = new ArrayAdapter<String>(this, R.layout.item, shoes);
-        shoeList.setAdapter(adapt);
     }
 
     Runnable findShoe = new Runnable() {
         public void run() {
-            String URL = "jdbc:mysql://frodo.bentley.edu:3306/world";
+            String URL = "jdbc:mysql://frodo.bentley.edu:3306/sneakeroom";
             String username = "harry";
             String password = "harry";
 
@@ -79,10 +75,18 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                 String colorway;
                 double price;
                 String condition;
+                String finalOut;
 
                 String s = "";
                 while (shoeResult.next()) {
+                        sneakerName = shoeResult.getString("sneakerName");
+                        colorway = shoeResult.getString("colorway");
+                        price = shoeResult.getDouble("price");
+                        condition = shoeResult.getString("condition");
+                        finalOut = sneakerName + " " + colorway + " " + price + " " + condition;
 
+                        //Add variable for the blob
+                        returnList.add(finalOut);
                 }
 
             } catch (SQLException e) {
@@ -97,8 +101,8 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     //Search the DB for the shoe name
     public void onClick(View view) {
         findShoe.run();
-
-
+        adapt = new ArrayAdapter<String>(this, R.layout.item, returnList);
+        shoeList.setAdapter(adapt);
     }
 
     //Click listener for items in the shoe List
