@@ -1,4 +1,4 @@
-package com.example.sneakerroom;
+ package com.example.sneakerroom;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -31,17 +31,16 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_shoe_layout);
-
         shoeName = (EditText) findViewById(R.id.SearchShoe);
         searchShoebtn = (Button) findViewById(R.id.DoSearchButton);
         shoeList = (ListView)findViewById(R.id.listShoe);
-
         searchShoebtn.setOnClickListener(this);
+
     }
 
     Runnable findShoe = new Runnable() {
         public void run() {
-            String URL = "jdbc:mysql://frodo.bentley.edu:3306/sneakeroom";
+            String URL = "jdbc:mysql://frodo.bentley.edu:3306/sneakerroom";
             String username = "harry";
             String password = "harry";
 
@@ -49,26 +48,27 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 Log.e("JDBC", "Did not load driver");
-
             }
 
-            Statement stmt = null;
+            PreparedStatement updateShoes = null;
+            ResultSet shoeResult = null;
+            Connection con = null;
+            try { //create connection and statement objects
+                con = DriverManager.getConnection(
+                        URL,
+                        username,
+                        password);
 
-            //Note try with resources block
-            try  //create connection to database
-                    (Connection con = DriverManager.getConnection(
-                            URL,
-                            username,
-                            password)) {
-
-                String shoeQuery =("SELECT * FROM sneaker WHERE sneakerName LIKE ?");
-                PreparedStatement updateShoes = con.prepareStatement(shoeQuery);
+                String shoeQuery = ("SELECT * FROM sneakers WHERE sneakerName LIKE ?");
+                updateShoes = con.prepareStatement(shoeQuery);
                 updateShoes.setString(1, shoeN);
-                ResultSet shoeResult = updateShoes.executeQuery();
+                shoeResult = updateShoes.executeQuery();
+                } catch (SQLException e) {
+                Log.e("JDBC", "problem connecting");
+                }
 
-                //Puts the data from the DB in the List
-                //Here have to set the list to the parameters from the DB
-                //Have to use a handler/something to send a message to the activity
+
+            try{
                 int count = 0;
                 int sneakerID;
                 String sneakerName;
@@ -79,20 +79,29 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
 
                 String s = "";
                 while (shoeResult.next()) {
-                        sneakerName = shoeResult.getString("sneakerName");
-                        colorway = shoeResult.getString("colorway");
-                        price = shoeResult.getDouble("price");
-                        condition = shoeResult.getString("condition");
-                        finalOut = sneakerName + " " + colorway + " " + price + " " + condition;
+                    sneakerName = shoeResult.getString("sneakerName");
+                    colorway = shoeResult.getString("colorway");
+                    price = shoeResult.getDouble("price");
+                    condition = shoeResult.getString("condition");
+                    finalOut = sneakerName + " " + colorway + " " + price + " " + condition;
 
-                        //Add variable for the blob
-                        returnList.add(finalOut);
+                    //Add variable for the blob
+                    returnList.add(finalOut);
                 }
-
             } catch (SQLException e) {
-                e.printStackTrace();
+                Log.e("JDBC", "problems with SQL sent to " + URL +
+                        ": " + e.getMessage());
+            } finally {
+                try { //close connection, may throw checked exception
+                    if (con != null)
+                        con.close();
+                } catch (SQLException e) {
+                    Log.e("JDBC", "close connection failed");
+                }
             }
+
         }
+
     };
     // Need to have handler message that will send a message with the shoe information
     // Activity will set the list to the shoe information
