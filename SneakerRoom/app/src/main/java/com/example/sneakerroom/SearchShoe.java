@@ -1,6 +1,9 @@
- package com.example.sneakerroom;
+package com.example.sneakerroom;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +29,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     private ArrayAdapter<String> adapt;
     private String shoeN = null;
     ArrayList<String> returnList = new ArrayList<String>();
+    private Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +37,14 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         setContentView(R.layout.search_shoe_layout);
         shoeName = (EditText) findViewById(R.id.SearchShoe);
         searchShoebtn = (Button) findViewById(R.id.DoSearchButton);
-        shoeList = (ListView)findViewById(R.id.listShoe);
         searchShoebtn.setOnClickListener(this);
 
+        shoeList = (ListView)findViewById(R.id.listShoe);
+        adapt = new ArrayAdapter<String>(this, R.layout.item, returnList);
+        shoeList.setAdapter(adapt);
     }
+
+    Handler handler = new Handler(Looper.getMainLooper());
 
     Runnable findShoe = new Runnable() {
         public void run() {
@@ -48,29 +56,28 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 Log.e("JDBC", "Did not load driver");
+                finish();
             }
 
-            PreparedStatement updateShoes = null;
-            ResultSet shoeResult = null;
             Connection con = null;
-            try { //create connection and statement objects
+            try {
                 con = DriverManager.getConnection(
                         URL,
                         username,
                         password);
+            } catch (SQLException e) {
+                Log.e("JDBC", "Could not make connection" + e.getMessage());
+            }
 
-                String shoeQuery = ("SELECT * FROM sneakers WHERE sneakerName LIKE ?");
+            try {
+                PreparedStatement updateShoes = null;
+                ResultSet shoeResult = null;
+                String shoeQuery = ("SELECT * FROM sneakers WHERE sneakerName LIKE ?;");
                 updateShoes = con.prepareStatement(shoeQuery);
                 updateShoes.setString(1, shoeN);
                 shoeResult = updateShoes.executeQuery();
-                } catch (SQLException e) {
-                Log.e("JDBC", "problem connecting");
-                }
-
-
-            try{
+                Log.e("JDBC", "Ran query");
                 int count = 0;
-                int sneakerID;
                 String sneakerName;
                 String colorway;
                 double price;
@@ -84,35 +91,39 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                     price = shoeResult.getDouble("price");
                     condition = shoeResult.getString("condition");
                     finalOut = sneakerName + " " + colorway + " " + price + " " + condition;
-
+                    Log.e("JDBC", "Found shoe" + " " + sneakerName);
                     //Add variable for the blob
                     returnList.add(finalOut);
+                    Thread.sleep(1000) ;
+                    handler.post(toUI);
                 }
-            } catch (SQLException e) {
+
+                con.close();
+            } catch (SQLException | InterruptedException e) {
                 Log.e("JDBC", "problems with SQL sent to " + URL +
                         ": " + e.getMessage());
-            } finally {
-                try { //close connection, may throw checked exception
-                    if (con != null)
-                        con.close();
-                } catch (SQLException e) {
-                    Log.e("JDBC", "close connection failed");
-                }
             }
 
-        }
-
-    };
+        }};
     // Need to have handler message that will send a message with the shoe information
     // Activity will set the list to the shoe information
 
     @Override
     //Search the DB for the shoe name
     public void onClick(View view) {
-        findShoe.run();
-        adapt = new ArrayAdapter<String>(this, R.layout.item, returnList);
-        shoeList.setAdapter(adapt);
+        shoeN = "%" + shoeName.getText().toString() + "%";
+        t = new Thread(findShoe);
+        t.start();
     }
+
+    private Runnable toUI = new Runnable() {
+
+        public void run() {
+            adapt.notifyDataSetChanged();
+            Log.e("Post", "Updated");
+        }
+
+    };
 
     //Click listener for items in the shoe List
     @Override
