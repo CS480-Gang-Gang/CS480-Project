@@ -44,14 +44,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         shoeList.setAdapter(adapt);
     }
 
-    Handler handler = new Handler(Looper.getMainLooper()) {
-        public void handleMessage(Message msg) {
-           returnList.add((String)msg.obj);
-           adapt.notifyDataSetChanged();
-           Log.e("To List", (String)msg.obj);
-
-        }
-    };
+    Handler handler = new Handler(Looper.getMainLooper());
 
     Runnable findShoe = new Runnable() {
         public void run() {
@@ -79,9 +72,9 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
             try {
                 PreparedStatement updateShoes = null;
                 ResultSet shoeResult = null;
-                String shoeQuery = ("SELECT * FROM sneakers WHERE sneakerName = 'Jordan 1';");
+                String shoeQuery = ("SELECT * FROM sneakers WHERE sneakerName LIKE ?;");
                 updateShoes = con.prepareStatement(shoeQuery);
-                //updateShoes.setString(1, shoeN);
+                updateShoes.setString(1, shoeN);
                 shoeResult = updateShoes.executeQuery();
                 Log.e("JDBC", "Ran query");
                 int count = 0;
@@ -100,13 +93,13 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                     finalOut = sneakerName + " " + colorway + " " + price + " " + condition;
                     Log.e("JDBC", "Found shoe" + " " + sneakerName);
                     //Add variable for the blob
-                    Message msg = handler.obtainMessage(count, finalOut);
-                    handler.sendMessage(msg);
-
+                    returnList.add(finalOut);
+                    Thread.sleep(1000) ;
+                    handler.post(toUI);
                 }
 
                 con.close();
-            } catch (SQLException e) {
+            } catch (SQLException | InterruptedException e) {
                 Log.e("JDBC", "problems with SQL sent to " + URL +
                         ": " + e.getMessage());
             }
@@ -118,12 +111,19 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     @Override
     //Search the DB for the shoe name
     public void onClick(View view) {
+        shoeN = "%" + shoeName.getText().toString() + "%";
         t = new Thread(findShoe);
         t.start();
-
-        //adapt = new ArrayAdapter<String>(this, R.layout.item, returnList);
-        //shoeList.setAdapter(adapt);
     }
+
+    private Runnable toUI = new Runnable() {
+
+        public void run() {
+            adapt.notifyDataSetChanged();
+            Log.e("Post", "Updated");
+        }
+
+    };
 
     //Click listener for items in the shoe List
     @Override
