@@ -77,14 +77,13 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                 updateShoes.setString(1, shoeN);
                 shoeResult = updateShoes.executeQuery();
                 Log.e("JDBC", "Ran query");
-                int count = 0;
+
                 String sneakerName;
                 String colorway;
                 double price;
                 String condition;
                 String finalOut;
 
-                String s = "";
                 while (shoeResult.next()) {
                     sneakerName = shoeResult.getString("sneakerName");
                     colorway = shoeResult.getString("colorway");
@@ -94,12 +93,11 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                     Log.e("JDBC", "Found shoe" + " " + sneakerName);
                     //Add variable for the blob
                     returnList.add(finalOut);
-                    Thread.sleep(1000) ;
                     handler.post(toUI);
                 }
 
                 con.close();
-            } catch (SQLException | InterruptedException e) {
+            } catch (SQLException e) {
                 Log.e("JDBC", "problems with SQL sent to " + URL +
                         ": " + e.getMessage());
             }
@@ -117,12 +115,10 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     }
 
     private Runnable toUI = new Runnable() {
-
         public void run() {
             adapt.notifyDataSetChanged();
             Log.e("Post", "Updated");
         }
-
     };
 
     //Click listener for items in the shoe List
