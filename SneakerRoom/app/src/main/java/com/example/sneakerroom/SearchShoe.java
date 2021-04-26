@@ -28,7 +28,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     private ListView shoeList;
     private ArrayAdapter<String> adapt;
     private String shoeN = null;
-    ArrayList<String> returnList = new ArrayList<String>();
+    ArrayList<Shoes> returnList = new ArrayList<Shoes>();
     private Thread t;
 
     @Override
@@ -40,7 +40,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         searchShoebtn.setOnClickListener(this);
 
         shoeList = (ListView)findViewById(R.id.listShoe);
-        adapt = new ArrayAdapter<String>(this, R.layout.item, returnList);
+        adapt = new ShoesAdapter(this, returnList);
         shoeList.setAdapter(adapt);
     }
 
@@ -70,29 +70,35 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
             }
 
             try {
-                PreparedStatement updateShoes = null;
-                ResultSet shoeResult = null;
+
                 String shoeQuery = ("SELECT * FROM sneakers WHERE sneakerName LIKE ?;");
-                updateShoes = con.prepareStatement(shoeQuery);
+                PreparedStatement updateShoes = con.prepareStatement(shoeQuery);
                 updateShoes.setString(1, shoeN);
-                shoeResult = updateShoes.executeQuery();
+                ResultSet shoeResult = updateShoes.executeQuery();
                 Log.e("JDBC", "Ran query");
 
+                Shoes shoes = null;
+                int shoeid;
                 String sneakerName;
                 String colorway;
                 double price;
                 String condition;
+                int userid;
+
                 String finalOut;
 
                 while (shoeResult.next()) {
+                    shoeid = shoeResult.getInt("idSneakers");
                     sneakerName = shoeResult.getString("sneakerName");
                     colorway = shoeResult.getString("colorway");
                     price = shoeResult.getDouble("price");
                     condition = shoeResult.getString("condition");
-                    finalOut = sneakerName + " " + colorway + " " + price + " " + condition;
+                    userid = shoeResult.getInt("idUser");
+                    shoes = new Shoes(shoeid, sneakerName, colorway, price, condition, userid);
+                    returnList.add(shoes);
+
                     Log.e("JDBC", "Found shoe" + " " + sneakerName);
                     //Add variable for the blob
-                    returnList.add(finalOut);
                     handler.post(toUI);
                 }
 

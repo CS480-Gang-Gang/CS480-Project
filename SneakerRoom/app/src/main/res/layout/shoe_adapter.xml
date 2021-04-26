@@ -8,42 +8,43 @@
 
     <TextView
         android:id="@+id/sneaker_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
         android:textColor="#040404"
-        android:textSize="15dip"
-        android:textStyle="bold"
+        android:textSize="18dip"
         android:typeface="sans" />
 
     <TextView
         android:id="@+id/sneaker_price"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
         android:textColor="#040404"
-        android:textSize="15dip"
-        android:textStyle="bold"
+        android:textSize="18dip"
         android:typeface="sans" />
 
     <TextView
         android:id="@+id/sneaker_colorway"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
         android:textColor="#040404"
-        android:textSize="15dip"
-        android:textStyle="bold"
+        android:textSize="18dip"
         android:typeface="sans" />
 
     <TextView
-        android:id="@+id/sneaker_location"
-        android:layout_width="match_parent"
+        android:id="@+id/sneaker_condition"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
         android:textColor="#040404"
-        android:textSize="15dip"
-        android:textStyle="bold"
+        android:textSize="18dip"
+
         android:typeface="sans" />
 
 

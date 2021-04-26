@@ -22,12 +22,19 @@ class ShoesAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Shoes shoes = arrayList.get(position);
-        if(convertView==null){
+        if(convertView == null){
             LayoutInflater layoutInflater = LayoutInflater.from(context);
-            convertView=layoutInflater.inflate(R.layout.shoe_adapter, null);
+            convertView = layoutInflater.inflate(R.layout.shoe_adapter, null);
 
+            TextView shoeName = convertView.findViewById(R.id.sneaker_name);
+            TextView shoePrice = convertView.findViewById(R.id.sneaker_price);
+            TextView shoeColorway = convertView.findViewById(R.id.sneaker_colorway);
+            TextView shoeCondition = convertView.findViewById(R.id.sneaker_condition);
 
-
+            shoeName.setText(shoes.getSneakerName());
+            shoePrice.setText(shoes.getPrice() + "");
+            shoeColorway.setText(shoes.getColorway());
+            shoeCondition.setText(shoes.getCondition());
         }
         return convertView;
     }
