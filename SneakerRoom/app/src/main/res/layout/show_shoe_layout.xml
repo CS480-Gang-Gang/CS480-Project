@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dip">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Shoe Name"
+        android:textSize="24dip"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/sneaker_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#040404"
+        android:textSize="18dip"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Price"
+        android:textSize="24dip"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/sneaker_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#040404"
+        android:textSize="18dip"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/sneaker_colorway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#040404"
+        android:textSize="18dip"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/sneaker_condition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#040404"
+        android:textSize="18dip"
+
+        android:typeface="sans" />
+
+
+</LinearLayout>
