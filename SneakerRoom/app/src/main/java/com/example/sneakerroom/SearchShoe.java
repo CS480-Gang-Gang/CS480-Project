@@ -1,9 +1,11 @@
 package com.example.sneakerroom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,11 +25,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, Serializable {
     private EditText shoeName;
     private Button searchShoebtn;
     private ListView shoeList;
-    private ArrayAdapter<String> adapt;
+    private ArrayAdapter<Shoes> adapt;
     private String shoeN = null;
     ArrayList<Shoes> returnList = new ArrayList<Shoes>();
     private Thread t;
@@ -42,6 +45,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         shoeList = (ListView)findViewById(R.id.listShoe);
         adapt = new ShoesAdapter(this, returnList);
         shoeList.setAdapter(adapt);
+        shoeList.setOnItemClickListener(this);
     }
 
     Handler handler = new Handler(Looper.getMainLooper());
@@ -85,14 +89,13 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                 String condition;
                 int userid;
 
-                String finalOut;
 
                 while (shoeResult.next()) {
                     shoeid = shoeResult.getInt("idSneakers");
-                    sneakerName = shoeResult.getString("sneakerName");
-                    colorway = shoeResult.getString("colorway");
+                    sneakerName = shoeResult.getString("sneakerName").toUpperCase();
+                    colorway = shoeResult.getString("colorway").toUpperCase();
                     price = shoeResult.getDouble("price");
-                    condition = shoeResult.getString("condition");
+                    condition = shoeResult.getString("condition").toUpperCase();
                     userid = shoeResult.getInt("idUser");
                     shoes = new Shoes(shoeid, sneakerName, colorway, price, condition, userid);
                     returnList.add(shoes);
@@ -128,8 +131,12 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     };
 
     //Click listener for items in the shoe List
+
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
+        Shoes shoe = returnList.get(position);
+        Intent i = new Intent(this, ShowShoe.class);
+        i.putExtra("shoe", shoe);
+        startActivity(i);
     }
 }

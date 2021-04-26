@@ -64,7 +64,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
                     stmt = con.createStatement();
 
                     ResultSet account = null;
-                    String updateAccount = ("Select userID from accountinfo WHERE username = ?, password = ?");
+                    String updateAccount = ("Select * from user WHERE username = ?, password = ?");
                     newAcc = con.prepareStatement(updateAccount);
                     newAcc.setString(1, String.valueOf(usernameE));
                     newAcc.setString(2, String.valueOf(passwordE));

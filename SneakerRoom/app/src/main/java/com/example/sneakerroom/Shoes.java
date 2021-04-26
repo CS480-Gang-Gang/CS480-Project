@@ -1,6 +1,8 @@
 package com.example.sneakerroom;
 
-public class Shoes {
+import java.io.Serializable;
+
+public class Shoes implements Serializable {
     private int sneakerID;
     private String sneakerName;
     private String colorway;

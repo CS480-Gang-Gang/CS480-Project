@@ -6,19 +6,67 @@ public class User {
     private String lastName;
     private int numShoes;
     private String address;
-    private String email;
+    private String city;
+    private String state;
+    private String phoneNum;
+    private String userName;
     private String password;
-    private String passwordRep;
+    private int zip;
 
-    public User(int idUser, String firstName, String lastName, int numShoes, String address, String email, String password, String passwordrep) {
+    public User(int idUser, String firstName, String lastName, int numShoes, String address, String userName, String password) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
         this.numShoes = numShoes;
         this.address = address;
-        this.email = email;
+        this.userName = userName;
         this.password = password;
-        this.passwordRep = passwordRep;
+    }
+
+    public User(int idUser, String firstName, String lastName, int numShoes, String address,
+                String userName, String password, String city, String state, String phoneNum, int zip) {
+        this.idUser = idUser;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.numShoes = numShoes;
+        this.address = address;
+        this.userName = userName;
+        this.password = password;
+        this.city = city;
+        this.state = state;
+        this.phoneNum = phoneNum;
+        this.zip = zip;
+    }
+    public int getZip() {
+        return zip;
+    }
+
+    public void setZip(int zip) {
+        this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public int getIdUser() {
@@ -61,12 +109,12 @@ public class User {
         this.address = address;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -77,13 +125,6 @@ public class User {
         this.password = password;
     }
 
-    public String getPasswordRep() {
-        return passwordRep;
-    }
-
-    public void setPasswordRep(String passwordRep) {
-        this.passwordRep = passwordRep;
-    }
 
     @Override
     public String toString() {
@@ -93,9 +134,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", numShoes=" + numShoes +
                 ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
+                ", email='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", passwordRep='" + passwordRep + '\'' +
                 '}';
     }
 }
