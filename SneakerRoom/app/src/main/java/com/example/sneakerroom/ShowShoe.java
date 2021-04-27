@@ -1,5 +1,7 @@
 package com.example.sneakerroom;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -7,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ShowShoe extends AppCompatActivity {
+public class ShowShoe extends AppCompatActivity implements View.OnClickListener {
     private TextView name;
     private TextView price;
     private TextView colorway;
@@ -49,8 +52,11 @@ public class ShowShoe extends AppCompatActivity {
         userTitle = (TextView)findViewById(R.id.textViewUser);
         user = (TextView)findViewById(R.id.shoe_user_name);
         maps = (Button)findViewById(R.id.maps);
+        maps.setOnClickListener(this);
         sms = (Button)findViewById(R.id.sms);
+        sms.setOnClickListener(this);
         dial = (Button)findViewById(R.id.dial);
+        dial.setOnClickListener(this);
 
         Shoes shoe = (Shoes)getIntent().getSerializableExtra("shoe");
         Bundle bundle = getIntent().getExtras();
@@ -131,4 +137,27 @@ public class ShowShoe extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sms:
+                break;
+
+            //implicit intent, call GoogleMaps
+            case R.id.map:
+                Uri uri2 = Uri.parse("geo:0,0?q=175+forest+street+waltham+ma");
+                Intent i2 = new Intent(Intent.ACTION_VIEW,uri2);
+                startActivity(i2);
+                break;
+
+
+            //implicit intent, open dialer and make call
+            case R.id.dial:
+                Uri uri3 = Uri.parse("tel:7818912000");
+                Intent i3 = new Intent(Intent.ACTION_CALL,uri3);
+                startActivity(i3);
+                break;
+        }
+    }
 }
