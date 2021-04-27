@@ -16,6 +16,7 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
     private Button searchProfileButton;
     private Button searchShoeButton;
     private Button searchLocationButton;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
         searchShoeButton.setOnClickListener(this);
         searchLocationButton.setOnClickListener(this);
 
+        user = (User)getIntent().getSerializableExtra("user");
+
     }
 
 
@@ -42,6 +45,7 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
             case R.id.view_profile_B:
                 //Start a try catch to check for errors on click
                 Intent i1 = new Intent(this, ViewProfile.class);
+                i1.putExtra("user", user);
                 startActivity(i1);
                 break;
 /*
@@ -54,12 +58,14 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
             case R.id.search_shoe_B:
                 //Intent to place a call
                 Intent i3 = new Intent(this, SearchShoe.class);
+                i3.putExtra("user", user);
                 startActivity(i3);
                 break;
 
             case R.id.search_location_B:
                 //Intent to open Map showing Bentley University
                 Intent i4 = new Intent(this, SearchLocation.class);
+                i4.putExtra("user", user);
                 startActivity(i4);
                 break;
         }

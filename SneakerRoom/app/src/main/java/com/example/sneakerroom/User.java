@@ -1,34 +1,24 @@
 package com.example.sneakerroom;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int idUser;
     private String firstName;
     private String lastName;
-    private int numShoes;
     private String address;
     private String city;
     private String state;
     private String phoneNum;
     private String userName;
     private String password;
-    private int zip;
+    private String zip;
 
-    public User(int idUser, String firstName, String lastName, int numShoes, String address, String userName, String password) {
+    public User(int idUser, String firstName, String lastName, String address,
+                String userName, String password, String city, String state, String zip, String phoneNum) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.numShoes = numShoes;
-        this.address = address;
-        this.userName = userName;
-        this.password = password;
-    }
-
-    public User(int idUser, String firstName, String lastName, int numShoes, String address,
-                String userName, String password, String city, String state, String phoneNum, int zip) {
-        this.idUser = idUser;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.numShoes = numShoes;
         this.address = address;
         this.userName = userName;
         this.password = password;
@@ -37,11 +27,11 @@ public class User {
         this.phoneNum = phoneNum;
         this.zip = zip;
     }
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 
@@ -93,14 +83,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getNumShoes() {
-        return numShoes;
-    }
-
-    public void setNumShoes(int numShoes) {
-        this.numShoes = numShoes;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -132,7 +114,6 @@ public class User {
                 "idUser=" + idUser +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", numShoes=" + numShoes +
                 ", address='" + address + '\'' +
                 ", email='" + userName + '\'' +
                 ", password='" + password + '\'' +

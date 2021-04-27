@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class CreateAccount extends AppCompatActivity implements View.OnClickListener {
@@ -29,6 +30,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     private EditText state;
     private EditText zip;
     private EditText phoneNum;
+    private EditText addy;
 
     private boolean passMatch = false;
     private boolean isGood = false;
@@ -41,10 +43,12 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     private String s = null;
     private String z = null;
     private String phone = null;
+    private String address = null;
+
+    private ArrayList<Integer> u = new ArrayList<Integer>();
 
     Thread t = null;
 
-    private Button checkPass;
     private Button createAcc;
 
     @Override
@@ -61,12 +65,11 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         state = (EditText) findViewById(R.id.state);
         zip = (EditText) findViewById(R.id.zip);
         phoneNum = (EditText) findViewById(R.id.phone_num);
+        addy= (EditText) findViewById(R.id.address_info);
 
-        checkPass = (Button)findViewById(R.id.check_password);
-        createAcc = (Button)findViewById(R.id.create_account_button);
-
-        checkPass.setOnClickListener((View.OnClickListener) this);
-        createAcc.setOnClickListener((View.OnClickListener) this);
+        //checkPass = (Button)findViewById(R.id.check_password);
+        createAcc = (Button)findViewById(R.id.create_button);
+        createAcc.setOnClickListener(this);
 
 
     }
@@ -80,7 +83,9 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     Runnable toUI = new Runnable() {
         public void run() {
             if (isGood == false){
-
+                makeToast("Account information not complete");
+            } else {
+                makeToast("Account Creation Successful");
             }
         }
     };
@@ -111,13 +116,41 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
             try {
 
-                String shoeQuery = ("SELECT * FROM user WHERE username LIKE ?;");
-                PreparedStatement updateShoes = con.prepareStatement(shoeQuery);
-                updateShoes.setString(1, userN);
-                ResultSet shoeResult = updateShoes.executeQuery();
-                if (shoeResult.next() == true){
-                    throw new InterruptedException();
+                String userCheckQuery = ("SELECT * FROM user WHERE username LIKE ?;");
+                PreparedStatement findUser = con.prepareStatement(userCheckQuery);
+                findUser.setString(1, userN);
+                ResultSet userResult = findUser.executeQuery();
+
+                String userCountQuery = ("SELECT * FROM user;");
+                PreparedStatement cQ = con.prepareStatement(userCountQuery);
+                ResultSet users = cQ.executeQuery();
+                while(users.next()){
+                    int i = users.getInt("idUser");
+                    u.add(i);
                 }
+                int uID = u.size() + 1;
+
+                if (userResult.next() == true){
+                    throw new InterruptedException();
+                } else {
+                    String insertUserQ = "INSERT INTO user " +
+                            "(idUser, firstName, lastName, address, city, state, zip, username, password, phonenum) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                    PreparedStatement addUser = con.prepareStatement(insertUserQ);
+                    addUser.setInt(1, uID);
+                    addUser.setString(2, fN);
+                    addUser.setString(3, lN);
+                    addUser.setString(4, address);
+                    addUser.setString(5, c);
+                    addUser.setString(6, s);
+                    addUser.setString(7, z);
+                    addUser.setString(8, userN);
+                    addUser.setString(9, pass);
+                    addUser.setString(10, phone);
+
+                    addUser.executeUpdate();
+                    Log.e("New User", "Added User " + userN + " to the system.");
+                }
+                handler.post(toUI);
                 Log.e("JDBC", "Ran query");
             } catch (SQLException e) {
                 Log.e("JDBC", "Could not add the account");
@@ -128,33 +161,39 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         }
     };
 
+    public boolean checkPassMatch () {
+        if((passwordN.getText().toString()).equals(passwordRep.getText().toString())){
+            passMatch = true;
+            Toast.makeText( this, "Passwords Match", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText( this, "Passwords Don't Match", Toast.LENGTH_LONG).show();
+            passMatch = false;
+            passwordRep.setText("");
+            passwordN.setText("");
+        }
+        return passMatch;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
             case R.id.create_button:
-                userN = usernameN.getText().toString();
-                pass = passwordN.getText().toString();
-                fN = firstN.getText().toString();
-                lN = lastN.getText().toString();
-                c = city.getText().toString();
-                s = state.getText().toString();
-                userN = usernameN.getText().toString();
-                userN = usernameN.getText().toString();
+                if (checkPassMatch() == true){
+                    userN = usernameN.getText().toString();
+                    pass = passwordN.getText().toString();
+                    fN = firstN.getText().toString();
+                    lN = lastN.getText().toString();
+                    address = addy.getText().toString();
+                    c = city.getText().toString();
+                    s = state.getText().toString();
+                    z = zip.getText().toString();
+                    phone = phoneNum.getText().toString();
 
-                t = new Thread(insertAndAdd);
-                t.start();
-                break;
-
-            case R.id.check_password:
-                if((passwordN.getText().toString()).equals(passwordRep.getText().toString())){
-                    passMatch = true;
-                    Toast.makeText( this, "Passwords Match", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText( this, "Passwords Don't Match", Toast.LENGTH_LONG).show();
-                    passwordRep.setText("");
-                    passwordN.setText("");
+                    t = new Thread(insertAndAdd);
+                    t.start();
                 }
+
                 break;
         }
     }
