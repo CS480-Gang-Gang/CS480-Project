@@ -1,5 +1,6 @@
 package com.example.sneakerroom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,9 +17,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class CreateAccount extends AppCompatActivity implements View.OnClickListener {
     private EditText usernameN;
@@ -56,9 +55,9 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_login);
 
-        usernameN = (EditText) findViewById(R.id.username);
-        passwordN = (EditText) findViewById(R.id.password);
-        passwordRep = (EditText) findViewById(R.id.passwordrep);
+        usernameN = (EditText) findViewById(R.id.userName);
+        passwordN = (EditText) findViewById(R.id.pass);
+        passwordRep = (EditText) findViewById(R.id.passrep);
         firstN = (EditText) findViewById(R.id.first_name);
         lastN = (EditText) findViewById(R.id.last_name);
         city = (EditText) findViewById(R.id.city);
@@ -68,7 +67,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         addy= (EditText) findViewById(R.id.address_info);
 
         //checkPass = (Button)findViewById(R.id.check_password);
-        createAcc = (Button)findViewById(R.id.create_button);
+        createAcc = (Button)findViewById(R.id.create_acc);
         createAcc.setOnClickListener(this);
 
 
@@ -76,6 +75,11 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
     public void makeToast(String message){
         Toast.makeText( this, message, Toast.LENGTH_LONG).show();
+    }
+
+    public void startLogIn(){
+        Intent i = new Intent(this, LogIn.class);
+        startActivity(i);
     }
 
     Handler handler = new Handler(Looper.getMainLooper());
@@ -86,6 +90,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
                 makeToast("Account information not complete");
             } else {
                 makeToast("Account Creation Successful");
+                startLogIn();
             }
         }
     };
@@ -149,8 +154,11 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
                     addUser.executeUpdate();
                     Log.e("New User", "Added User " + userN + " to the system.");
+                    isGood = true;
+                    Thread.sleep(500);
+                    handler.post(toUI);
                 }
-                handler.post(toUI);
+
                 Log.e("JDBC", "Ran query");
             } catch (SQLException e) {
                 Log.e("JDBC", "Could not add the account");
@@ -178,7 +186,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.create_button:
+            case R.id.create_acc:
                 if (checkPassMatch() == true){
                     userN = usernameN.getText().toString();
                     pass = passwordN.getText().toString();

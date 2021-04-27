@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateAccount"> </activity>
+        <activity android:name=".AddShoe"> </activity>
         <activity android:name=".DashBoard"> </activity>
         <activity android:name=".ViewProfile"> </activity>
         <activity android:name=".SearchShoe"> </activity>

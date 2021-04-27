@@ -17,7 +17,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class LogIn extends AppCompatActivity implements View.OnClickListener{
     private EditText usernameE;
@@ -39,8 +38,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
 
-        usernameE = (EditText) findViewById(R.id.username);
-        passwordE = (EditText) findViewById(R.id.password);
+        usernameE = (EditText) findViewById(R.id.uName);
+        passwordE = (EditText) findViewById(R.id.pass);
 
         loginB = (Button) findViewById(R.id.login_button);
         loginB.setOnClickListener(this);
@@ -68,6 +67,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
             makeToast(message);
             if (isGood == true) {
                 startDash();
+                finish();
             }
         }
     };
@@ -114,10 +114,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
 
                         handler.post(toUI);
                     } else {
-                        message = "Account Not Recognized, try again";
+                        message = "Password Not Recognized, try again";
+                        handler.post(toUI);
                     }
                 } else {
-                    message = "No Account found";
+                    message = "No User Name Found";
+                    handler.post(toUI);
                 }
 
 

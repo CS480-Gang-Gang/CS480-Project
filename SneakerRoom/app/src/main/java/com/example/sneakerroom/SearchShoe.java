@@ -33,11 +33,13 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     private String shoeN = null;
     ArrayList<Shoes> returnList = new ArrayList<Shoes>();
     private Thread t;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_shoe_layout);
+
         shoeName = (EditText) findViewById(R.id.SearchShoe);
         searchShoebtn = (Button) findViewById(R.id.DoSearchButton);
         searchShoebtn.setOnClickListener(this);
@@ -137,6 +139,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         Shoes shoe = returnList.get(position);
         Intent i = new Intent(this, ShowShoe.class);
         i.putExtra("shoe", shoe);
+        i.putExtra("bool", true);
         startActivity(i);
     }
 }

@@ -111,7 +111,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textViewUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -139,21 +139,21 @@
         android:paddingBottom="20dp">
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/maps"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Location" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/sms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Send SMS" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/dial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
