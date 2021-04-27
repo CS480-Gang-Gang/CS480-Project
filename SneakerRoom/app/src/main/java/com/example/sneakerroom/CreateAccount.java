@@ -155,8 +155,10 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
                     addUser.executeUpdate();
                     Log.e("New User", "Added User " + userN + " to the system.");
                     isGood = true;
+                    con.close();
                     Thread.sleep(500);
                     handler.post(toUI);
+
                 }
 
                 Log.e("JDBC", "Ran query");

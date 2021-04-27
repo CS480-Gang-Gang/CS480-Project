@@ -125,6 +125,7 @@ public class ShowShoe extends AppCompatActivity {
                 String zip = userResult.getString("zip");
                 String phone = userResult.getString("phonenum");
                 u = new User(uID, fName, lName, addy, uName, pass, city, state, zip, phone);
+                con.close();
             } catch (SQLException e){
 
             }

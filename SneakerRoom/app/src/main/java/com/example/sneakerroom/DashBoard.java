@@ -61,13 +61,15 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
                 i3.putExtra("user", user);
                 startActivity(i3);
                 break;
-
+            /*
             case R.id.search_location_B:
                 //Intent to open Map showing Bentley University
                 Intent i4 = new Intent(this, SearchLocation.class);
                 i4.putExtra("user", user);
                 startActivity(i4);
                 break;
+
+             */
         }
     }
 }

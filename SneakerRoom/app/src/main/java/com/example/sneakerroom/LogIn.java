@@ -113,13 +113,16 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
                         user = new User(uID, fName, lName, addy, uN, pass, city, state, zip, phone);
 
                         handler.post(toUI);
+                        con.close();
                     } else {
                         message = "Password Not Recognized, try again";
                         handler.post(toUI);
+                        con.close();
                     }
                 } else {
                     message = "No User Name Found";
                     handler.post(toUI);
+                    con.close();
                 }
 
 

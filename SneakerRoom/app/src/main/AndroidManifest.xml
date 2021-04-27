@@ -22,7 +22,6 @@
         <activity android:name=".DashBoard"> </activity>
         <activity android:name=".ViewProfile"> </activity>
         <activity android:name=".SearchShoe"> </activity>
-        <activity android:name=".SearchLocation"> </activity>
         <activity android:name=".ShowShoe"> </activity>
 
     </application>
