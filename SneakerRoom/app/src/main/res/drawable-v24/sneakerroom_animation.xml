@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/selected" android:oneshot="false">
+    <item android:drawable="@drawable/sneaker1" android:duration="50" />
+    <item android:drawable="@drawable/sneaker2" android:duration="50" />
+    <item android:drawable="@drawable/sneaker3" android:duration="50" />
+    <item android:drawable="@drawable/sneaker4" android:duration="50" />
+    <item android:drawable="@drawable/sneaker5" android:duration="50" />
+    <item android:drawable="@drawable/sneaker6" android:duration="50" />
+    <item android:drawable="@drawable/sneaker7" android:duration="50" />
+    <item android:drawable="@drawable/sneaker8" android:duration="50" />
+    <item android:drawable="@drawable/sneaker9" android:duration="50" />
+    <item android:drawable="@drawable/sneaker10" android:duration="50" />
+    <item android:drawable="@drawable/sneaker11" android:duration="50" />
+</animation-list>
