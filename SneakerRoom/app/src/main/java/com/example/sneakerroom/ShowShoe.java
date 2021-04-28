@@ -161,6 +161,7 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         String pNum = u.getPhoneNum();
+        String location = u.getAddress() + ", " + u.getCity() + ", " + u.getState();
         switch (v.getId()) {
             case R.id.sms:
                 Intent sendIntent = new Intent(Intent.ACTION_VIEW);
@@ -169,9 +170,10 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
                 break;
 
             case R.id.maps:
-                Uri uri2 = Uri.parse("geo:0,0?q=175+forest+street+waltham+ma");
-                Intent i2 = new Intent(Intent.ACTION_VIEW,uri2);
-                startActivity(i2);
+                Intent i = new Intent(this, MapActivity.class);
+                i.putExtra("location", location);
+                Log.e("Location", location);
+                startActivity(i);
                 break;
 
             case R.id.dial:

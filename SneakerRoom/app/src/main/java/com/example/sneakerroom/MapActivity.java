@@ -2,7 +2,11 @@ package com.example.sneakerroom;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,19 +15,39 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private double lat;
+    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        String location = getIntent().getStringExtra("location");
+        Log.e("Location", location);
+        Geocoder geo = new Geocoder(this);
+        try {
+            List<Address> a = geo.getFromLocationName(location, 5);
+            Address addy = a.get(0);
+            lat = addy.getLatitude();
+            longitude = addy.getLongitude();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+    /*
 
     /**
      * Manipulates the map once available.
@@ -39,8 +63,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        LatLng shoeLoc = new LatLng(lat, longitude);
+        mMap.addMarker(new MarkerOptions().position(shoeLoc).title("Here is the Shoe"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(shoeLoc));
     }
 }
