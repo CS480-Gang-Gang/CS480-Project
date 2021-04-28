@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +30,9 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
     private Button edit;
     private ListView shoeList;
     private ArrayAdapter<Shoes> adapt;
+
+    final int SearchShoeI = Menu.FIRST ;
+    final int Exit = Menu.FIRST + 1;
 
     private String shoeN = null;
     ArrayList<Shoes> returnList = new ArrayList<Shoes>();
@@ -128,6 +133,37 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
             }
 
         }};
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        super.onCreateOptionsMenu(menu);
+        MenuItem item1 = menu.add(0, SearchShoeI, Menu.NONE, "SearchShoe");
+        MenuItem item2 = menu.add(0, Exit, Menu.NONE, "Exit");
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemID = item.getItemId();  //get id of menu item picked
+
+        switch (itemID) {
+            case SearchShoeI :
+                Intent i = new Intent(this, SearchShoe.class);
+                i.putExtra("user", user);
+                startActivity(i);
+                return true;
+
+            case Exit : finish();
+
+            default: super.onOptionsItemSelected(item);
+        }
+
+        return false;
+    }
 
 
     @Override
