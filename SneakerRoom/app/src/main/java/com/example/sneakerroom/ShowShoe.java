@@ -142,10 +142,15 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sms:
+                Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+                smsIntent.setType("vnd.android-dir/mms-sms");
+                smsIntent.putExtra("address", "12125551212");
+                smsIntent.putExtra("sms_body","Body of Message");
+                startActivity(smsIntent);
                 break;
 
             //implicit intent, call GoogleMaps
-            case R.id.map:
+            case R.id.maps:
                 Uri uri2 = Uri.parse("geo:0,0?q=175+forest+street+waltham+ma");
                 Intent i2 = new Intent(Intent.ACTION_VIEW,uri2);
                 startActivity(i2);
