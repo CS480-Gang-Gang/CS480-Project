@@ -13,9 +13,7 @@ import android.widget.Toast;
 public class DashBoard extends AppCompatActivity implements View.OnClickListener {
 
     private Button viewProfileButton;
-    private Button searchProfileButton;
     private Button searchShoeButton;
-    private Button searchLocationButton;
     private User user;
 
     @Override
@@ -24,14 +22,10 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.dashboard_layout);
 
         viewProfileButton = (Button) findViewById(R.id.view_profile_B);
-        searchProfileButton = (Button) findViewById(R.id.search_profile_B);
         searchShoeButton = (Button) findViewById(R.id.search_shoe_B);
-        searchLocationButton = (Button) findViewById(R.id.search_location_B);
 
         viewProfileButton.setOnClickListener(this);
-        searchProfileButton.setOnClickListener(this);
         searchShoeButton.setOnClickListener(this);
-        searchLocationButton.setOnClickListener(this);
 
         user = (User)getIntent().getSerializableExtra("user");
 
@@ -48,28 +42,13 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
                 i1.putExtra("user", user);
                 startActivity(i1);
                 break;
-/*
-            case R.id.search_profile_B:
-                //Intent to pull up new class
-                Intent i2 = new Intent(this, SearchProfile.class);
-                startActivity(i2);
-                break;
-*/
+
             case R.id.search_shoe_B:
                 //Intent to place a call
                 Intent i3 = new Intent(this, SearchShoe.class);
                 i3.putExtra("user", user);
                 startActivity(i3);
                 break;
-            /*
-            case R.id.search_location_B:
-                //Intent to open Map showing Bentley University
-                Intent i4 = new Intent(this, SearchLocation.class);
-                i4.putExtra("user", user);
-                startActivity(i4);
-                break;
-
-             */
         }
     }
 }
