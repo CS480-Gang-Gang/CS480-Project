@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AddShoe extends AppCompatActivity implements View.OnClickListener {
+    //Instantiate Variables used in activity
     private EditText name;
     private EditText colorway;
     private EditText price;
@@ -47,6 +48,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_shoe_layout);
 
+        //Set variables to layout widgets
         user = (User)getIntent().getSerializableExtra("user");
         name = (EditText)findViewById(R.id.shoename);
         colorway = (EditText)findViewById(R.id.colorway);
@@ -141,6 +143,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
                 addShoe.setString(5, sCondition);
                 addShoe.setInt(6, uID);
 
+                //Add shoe to database
                 addShoe.executeUpdate();
                 message = "Added " + sName + " to the system";
                 Log.e("New Shoe", "Added Shoe " + sName + " to the system.");

@@ -3,6 +3,7 @@ package com.example.sneakerroom;
 import java.io.Serializable;
 
 public class Shoes implements Serializable {
+    //Instantiate Variables used in activity
     private int sneakerID;
     private String sneakerName;
     private String colorway;
@@ -18,6 +19,8 @@ public class Shoes implements Serializable {
         this.condition = condition;
         this.userID = userID;
     }
+
+    //Accessors and Mutators for Shoe Objects
 
     public int getSneakerID() {
         return sneakerID;

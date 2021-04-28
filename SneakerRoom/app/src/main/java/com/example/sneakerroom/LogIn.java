@@ -98,7 +98,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
                 Log.e(tag, "Language is not available.");
             } else {
                 // The TTS engine has been successfully initialized
-                speak("Please enter task");
                 Log.i(tag, "TTS Initialization successful.");
             }
         } else {
@@ -132,6 +131,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
     }
 
     public void startDash(){
+        //Open Dashboard
         Intent i = new Intent(this, DashBoard.class);
         i.putExtra("user", user);
         startActivity(i);
@@ -180,6 +180,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
                           username,
                           password)) {
 
+                //Sql statement to sign in
                 String updateAccount = ("Select * from user WHERE username = ?;");
                 PreparedStatement newAcc = con.prepareStatement(updateAccount);
                 newAcc.setString(1, uN);
@@ -197,6 +198,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
                         String state = account.getString("state");
                         String zip = account.getString("zip");
                         String phone = account.getString("phonenum");
+                        //Add new User to the system
                         user = new User(uID, fName, lName, addy, uN, pass, city, state, zip, phone);
 
                         handler.post(toUI);
@@ -207,6 +209,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
                         con.close();
                     }
                 } else {
+                    //Notify the user that the username is not part of the system
                     message = "No User Name Found";
                     handler.post(toUI);
                     con.close();
@@ -214,6 +217,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
 
 
             } catch (SQLException e) {
+                //Catch SQl exception
                 Log.e("JDBC","problems with SQL sent to "+URL);
             }
         }

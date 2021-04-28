@@ -26,6 +26,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, Serializable {
+    //Instantiate Variables used in activity
     private EditText shoeName;
     private Button searchShoebtn;
     private ListView shoeList;
@@ -40,6 +41,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_shoe_layout);
 
+        //Set variables to layout widgets
         shoeName = (EditText) findViewById(R.id.SearchShoe);
         searchShoebtn = (Button) findViewById(R.id.DoSearchButton);
         searchShoebtn.setOnClickListener(this);

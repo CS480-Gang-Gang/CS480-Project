@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CreateAccount extends AppCompatActivity implements View.OnClickListener {
+    //Instantiate all variables used in activity
     private EditText usernameN;
     private EditText passwordN;
     private EditText passwordRep;
@@ -55,6 +56,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_login);
 
+        //Set variables to layout widgets
         usernameN = (EditText) findViewById(R.id.userName);
         passwordN = (EditText) findViewById(R.id.pass);
         passwordRep = (EditText) findViewById(R.id.passrep);
@@ -79,6 +81,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
     //creates intent and starts login activity after account creation successful
     public void startLogIn(){
+        //Bring the user to log in class
         Intent i = new Intent(this, LogIn.class);
         startActivity(i);
     }
@@ -156,6 +159,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
                     addUser.setString(9, pass);
                     addUser.setString(10, phone);
 
+                    //Adds user to sql database
                     addUser.executeUpdate();
                     Log.e("New User", "Added User " + userN + " to the system.");
                     isGood = true;
