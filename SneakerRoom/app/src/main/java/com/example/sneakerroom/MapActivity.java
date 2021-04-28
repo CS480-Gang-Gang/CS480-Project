@@ -30,6 +30,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        // Gets location from intent and geocodes it
         String location = getIntent().getStringExtra("location");
         Log.e("Location", location);
         Geocoder geo = new Geocoder(this);

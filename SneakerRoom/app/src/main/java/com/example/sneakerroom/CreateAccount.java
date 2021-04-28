@@ -77,6 +77,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         Toast.makeText( this, message, Toast.LENGTH_LONG).show();
     }
 
+    //creates intent and starts login activity after account creation successful
     public void startLogIn(){
         Intent i = new Intent(this, LogIn.class);
         startActivity(i);
@@ -84,6 +85,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
     Handler handler = new Handler(Looper.getMainLooper());
 
+    //posts to ui and sends message if info enetered is good or not
     Runnable toUI = new Runnable() {
         public void run() {
             if (isGood == false){
@@ -96,6 +98,8 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     };
 
 
+    //Checks the db for the user name, and adds the user if the user name is unique
+    // and the passwords match
     Runnable insertAndAdd = new Runnable() {
         public void run() {
             String URL = "jdbc:mysql://frodo.bentley.edu:3306/sneakerroom";
@@ -170,6 +174,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         }
     };
 
+    //checks password fields to see if passwords match
     public boolean checkPassMatch () {
         if((passwordN.getText().toString()).equals(passwordRep.getText().toString())){
             passMatch = true;
@@ -186,7 +191,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            //creates account if passwords match
             case R.id.create_acc:
                 if (checkPassMatch() == true){
                     userN = usernameN.getText().toString();

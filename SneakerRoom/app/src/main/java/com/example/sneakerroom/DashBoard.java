@@ -31,20 +31,20 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
 
     }
 
-
+    //Dashboard buttons
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
             case R.id.view_profile_B:
-                //Start a try catch to check for errors on click
+                //opens the view profile activity
                 Intent i1 = new Intent(this, ViewProfile.class);
                 i1.putExtra("user", user);
                 startActivity(i1);
                 break;
 
             case R.id.search_shoe_B:
-                //Intent to place a call
+                //opens search shoe activity
                 Intent i3 = new Intent(this, SearchShoe.class);
                 i3.putExtra("user", user);
                 startActivity(i3);

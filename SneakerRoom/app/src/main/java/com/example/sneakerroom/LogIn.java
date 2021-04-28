@@ -83,6 +83,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
         speaker.speak(output, TextToSpeech.QUEUE_FLUSH, null, "Id 0");
     }
 
+    //text to speech initializer
     public void onInit(int status) {
         // status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
         if (status == TextToSpeech.SUCCESS) {
@@ -138,6 +139,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
 
     Handler handler = new Handler(Looper.getMainLooper());
 
+    //posts to UI and logs in if criteria is accepted
     Runnable toUI = new Runnable() {
         @Override
         public void run() {
@@ -156,6 +158,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
         }
     };
 
+    //runnable to find the account if username and password entered
     Runnable findAcc = new Runnable() {
         @Override
         public void run() {
@@ -221,13 +224,14 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
     public void onClick(View v) {
         switch (v.getId()) {
 
+            //button to login
             case R.id.login_button:
                 uN = usernameE.getText().toString();
                 pass = passwordE.getText().toString();
                 t = new Thread(findAcc);
                 t.start();
                 break;
-
+            //button that starts create account activity
             case R.id.create_account_button:
                 Intent i = new Intent(this, CreateAccount.class);
                 startActivity(i);

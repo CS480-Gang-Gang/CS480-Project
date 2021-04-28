@@ -60,6 +60,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         t.start();
     }
 
+    // makes the connection
     public void makeConnection() {
         URL = "jdbc:mysql://frodo.bentley.edu:3306/sneakerroom";
         String username = "harry";
@@ -89,6 +90,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
             makeConnection();
             try {
 
+                //Created prepared statement and finds the shoes matching the user's id
                 String shoeQuery = ("SELECT * FROM sneaker WHERE userid LIKE ?;");
                 PreparedStatement updateShoes = con.prepareStatement(shoeQuery);
                 updateShoes.setInt(1, uID);
@@ -103,6 +105,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
                 String condition;
                 int userid;
 
+                //gets shoe info from the results
                 while (shoeResult.next()) {
                     shoeid = shoeResult.getInt("idsneaker");
                     sneakerName = shoeResult.getString("sneakername").toUpperCase();
@@ -130,11 +133,13 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+            //opens the add shoe activity
             case R.id.addbutton:
                 Intent i = new Intent(this, AddShoe.class);
                 i.putExtra("user", user);
                 startActivity(i);
                 break;
+                //goes back to the dashboard
             case R.id.dashbutton:
                 Intent i2 = new Intent(this, DashBoard.class);
                 i2.putExtra("user", user);
@@ -143,13 +148,22 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    //Posts the info to the UI
     private Runnable toUI = new Runnable() {
         public void run() {
-            adapt.notifyDataSetChanged();
-            Log.e("Post", "Updated");
+            try {
+                Thread.sleep(1000);
+                adapt.notifyDataSetChanged();
+                Log.e("Post", "Updated");
+            } catch (InterruptedException e) {
+
+            }
+
         }
     };
 
+
+    //Runs showshoe intent when list item is clicked
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Shoes shoe = returnList.get(position);

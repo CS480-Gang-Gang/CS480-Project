@@ -52,6 +52,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
 
     Handler handler = new Handler(Looper.getMainLooper());
 
+    //thread to find the shoe based off of sneakername
     Runnable findShoe = new Runnable() {
         public void run() {
             String URL = "jdbc:mysql://frodo.bentley.edu:3306/sneakerroom";
@@ -75,8 +76,9 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                 Log.e("JDBC", "Could not make connection" + e.getMessage());
             }
 
-            try {
 
+            //created prepared statement based off the sneakername
+            try {
                 String shoeQuery = ("SELECT * FROM sneaker WHERE sneakername LIKE ?;");
                 PreparedStatement updateShoes = con.prepareStatement(shoeQuery);
                 updateShoes.setString(1, shoeN);
@@ -128,6 +130,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         t.start();
     }
 
+    //posts the information to the UI
     private Runnable toUI = new Runnable() {
         public void run() {
             adapt.notifyDataSetChanged();
@@ -137,6 +140,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
 
     //Click listener for items in the shoe List
 
+    //Starts showshoe when an item in the listview is clicked
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         Shoes shoe = returnList.get(position);

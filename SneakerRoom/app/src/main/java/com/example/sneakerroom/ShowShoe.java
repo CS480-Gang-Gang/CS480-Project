@@ -75,7 +75,7 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
         colorway.setText(shoe.getColorway());
         condition.setText(shoe.getCondition());
 
-
+        //checks to see if activity is called from profile or search shoe
         if (bool == false) {
             userTitleInfo.setVisibility(View.INVISIBLE);
             userTitle.setVisibility(View.INVISIBLE);
@@ -92,7 +92,7 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
 
     Handler handler = new Handler(Looper.getMainLooper());
 
-
+    // posts to the UI
     private Runnable toUI = new Runnable() {
         public void run() {
             user.setText(u.getUserName());
@@ -103,6 +103,7 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
         Toast.makeText( this, message, Toast.LENGTH_LONG).show();
     }
 
+    //finds the user information from the userid in the shoe object
     private Runnable findUser = new Runnable() {
         public void run() {
             Log.e("Start Thread", "Start");
@@ -131,6 +132,7 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
             }
 
             Log.e("Load User", "User");
+            // creates prepared statement to find the user
             try {
                 String userCheckQuery = ("SELECT * FROM user WHERE idUser = ?;");
                 PreparedStatement findUser = con.prepareStatement(userCheckQuery);
@@ -163,19 +165,20 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
         String pNum = u.getPhoneNum();
         String location = u.getAddress() + ", " + u.getCity() + ", " + u.getState();
         switch (v.getId()) {
+            //calls sms intent
             case R.id.sms:
                 Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                 sendIntent.setData(Uri.parse("sms:" + pNum));
                 startActivity(sendIntent);
                 break;
-
+            //calls Google maps Cloud activity
             case R.id.maps:
                 Intent i = new Intent(this, MapActivity.class);
                 i.putExtra("location", location);
                 Log.e("Location", location);
                 startActivity(i);
                 break;
-
+                //calls the dialer
             case R.id.dial:
                 try{
                     Uri uri3 = Uri.parse("tel:" + pNum);
@@ -184,7 +187,6 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
                 } catch (SecurityException e) {
                     makeToast("Cannot Open Dialer, Go to Settings and Enable Permissions");
                 }
-
                 break;
         }
     }

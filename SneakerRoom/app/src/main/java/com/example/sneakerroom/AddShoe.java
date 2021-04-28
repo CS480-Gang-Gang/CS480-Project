@@ -67,6 +67,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
         Toast.makeText( this, message, Toast.LENGTH_LONG).show();
     }
 
+    //starts viewprofile activity after shoe is added
     public void startProfile(){
         Intent i = new Intent(this, ViewProfile.class);
         makeToast(message);
@@ -74,6 +75,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
         startActivity(i);
     }
 
+    //posts to the UI
     Runnable toUI = new Runnable() {
         @Override
         public void run() {
@@ -84,6 +86,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
         }
     };
 
+    //Adds the shoe to the db and creates a unique id
     Runnable addShoe = new Runnable() {
         @Override
         public void run() {
