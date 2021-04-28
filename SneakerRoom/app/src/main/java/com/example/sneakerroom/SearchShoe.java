@@ -77,7 +77,7 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
 
             try {
 
-                String shoeQuery = ("SELECT * FROM sneakers WHERE sneakerName LIKE ?;");
+                String shoeQuery = ("SELECT * FROM sneaker WHERE sneakername LIKE ?;");
                 PreparedStatement updateShoes = con.prepareStatement(shoeQuery);
                 updateShoes.setString(1, shoeN);
                 ResultSet shoeResult = updateShoes.executeQuery();
@@ -87,18 +87,18 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
                 int shoeid;
                 String sneakerName;
                 String colorway;
-                double price;
+                int price;
                 String condition;
                 int userid;
 
 
                 while (shoeResult.next()) {
-                    shoeid = shoeResult.getInt("idSneakers");
-                    sneakerName = shoeResult.getString("sneakerName").toUpperCase();
+                    shoeid = shoeResult.getInt("idsneaker");
+                    sneakerName = shoeResult.getString("sneakername").toUpperCase();
                     colorway = shoeResult.getString("colorway").toUpperCase();
-                    price = shoeResult.getDouble("price");
-                    condition = shoeResult.getString("condition").toUpperCase();
-                    userid = shoeResult.getInt("idUser");
+                    price = shoeResult.getInt("price");
+                    condition = shoeResult.getString("cond").toUpperCase();
+                    userid = shoeResult.getInt("userid");
                     shoes = new Shoes(shoeid, sneakerName, colorway, price, condition, userid);
                     returnList.add(shoes);
 

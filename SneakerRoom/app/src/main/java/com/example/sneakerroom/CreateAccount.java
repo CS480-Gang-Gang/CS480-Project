@@ -139,7 +139,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
                     throw new InterruptedException();
                 } else {
                     String insertUserQ = "INSERT INTO user " +
-                            "(idUser, firstName, lastName, address, city, state, zip, username, password, phonenum) VALUES (?,?,?,?,?,?,?,?,?,?);";
+                            "(idUser, firstName, lastName, address, city, state, zip, username, password, phonenum) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement addUser = con.prepareStatement(insertUserQ);
                     addUser.setInt(1, uID);
                     addUser.setString(2, fN);
@@ -155,7 +155,6 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
                     addUser.executeUpdate();
                     Log.e("New User", "Added User " + userN + " to the system.");
                     isGood = true;
-                    con.close();
                     Thread.sleep(500);
                     handler.post(toUI);
 
@@ -163,7 +162,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
                 Log.e("JDBC", "Ran query");
             } catch (SQLException e) {
-                Log.e("JDBC", "Could not add the account");
+                Log.e("JDBC", "Could not add the account " + e.getMessage());
             } catch (InterruptedException e) {
                 Log.e("Interrupt", "Account User Name Exists");
             }

@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:paddingTop="10dp"
         android:paddingBottom="20dp"
         android:text="Shoe Information"
         android:textSize="48dp"
@@ -104,8 +103,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="20dp"
         android:text="User Information"
         android:textSize="48dp"
         android:textStyle="bold" />

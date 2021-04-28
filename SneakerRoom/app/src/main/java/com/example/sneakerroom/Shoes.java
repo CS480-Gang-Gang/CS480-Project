@@ -6,11 +6,11 @@ public class Shoes implements Serializable {
     private int sneakerID;
     private String sneakerName;
     private String colorway;
-    private double price;
+    private int price;
     private String condition;
     private int userID;
 
-    public Shoes(int sneakerID, String sneakerName, String colorway, double price, String condition, int userID) {
+    public Shoes(int sneakerID, String sneakerName, String colorway, int price, String condition, int userID) {
         this.sneakerID = sneakerID;
         this.sneakerName = sneakerName;
         this.colorway = colorway;
@@ -47,7 +47,7 @@ public class Shoes implements Serializable {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

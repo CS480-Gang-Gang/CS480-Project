@@ -32,7 +32,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
     private Date date;
     private String sName;
     private String sColorway;
-    private Double sPrice;
+    private int sPrice;
     private String sCondition;
     private String message;
     private User user;
@@ -79,6 +79,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
         public void run() {
             if (isGood = true) {
                 startProfile();
+                finish();
             }
         }
     };
@@ -109,7 +110,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
             }
 
             try {
-                String shoeCountQuery = ("SELECT * FROM sneakers;");
+                String shoeCountQuery = ("SELECT * FROM sneaker;");
 
                 PreparedStatement cQ = con.prepareStatement(shoeCountQuery);
 
@@ -117,7 +118,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
 
                 Thread.sleep(1000);
                 while(shoes.next()){
-                    int i = shoes.getInt("idSneakers");
+                    int i = shoes.getInt("idsneaker");
                     u.add(i);
                 }
                 sID = u.size()+1;
@@ -125,28 +126,28 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
                 u = new ArrayList<Integer>();
 
 
-                String insertUserQ = "INSERT INTO sneakers " +
-                        "(idSneakers, sneakerName, colorway, price, condition, idUser) VALUES (?,?,?,?,?,?)";
+                String insertUserQ = "INSERT INTO sneaker " +
+                        "(idsneaker, sneakername, colorway, price, cond, userid) VALUES (?,?,?,?,?,?)";
                 Log.e("Yeet", "Here");
                 PreparedStatement addShoe = con.prepareStatement(insertUserQ);
                 Log.e("Yeet", "Here");
                 addShoe.setInt(1, sID);
                 addShoe.setString(2, sName);
                 addShoe.setString(3, sColorway);
-                addShoe.setDouble(4, sPrice);
+                addShoe.setInt(4, sPrice);
                 addShoe.setString(5, sCondition);
                 addShoe.setInt(6, uID);
 
                 addShoe.executeUpdate();
                 message = "Added " + sName + " to the system";
                 Log.e("New Shoe", "Added Shoe " + sName + " to the system.");
-                con.close();
+
                 isGood = true;
                 handler.post(toUI);
                 //Log.e("JDBC", "Ran query");
             } catch (SQLException e) {
-                message = "Could not add the shoe";
-                Log.e("JDBC", message);
+                message = "Could not add the shoe ";
+                Log.e("JDBC", message + e.getMessage());
             } catch (NumberFormatException e) {
                 message = "Price is not the right format";
                 Log.e("NumberFormatException", message);
@@ -160,7 +161,7 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         sName = name.getText().toString();
         sColorway = colorway.getText().toString();
-        sPrice = Double.parseDouble(price.getText().toString());
+        sPrice = Integer.parseInt(price.getText().toString());
         sCondition = condition.getText().toString();
         uID = user.getIdUser();
         Log.e("Yes", sName + "");

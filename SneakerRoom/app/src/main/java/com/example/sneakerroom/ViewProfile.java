@@ -43,19 +43,13 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_profile);
         user = (User)getIntent().getSerializableExtra("user");
-
         name = (TextView)findViewById(R.id.show_name);
         name.setText("Welcome User: " + user.getUserName());
-
         add = (Button)findViewById(R.id.addbutton);
-        delete = (Button)findViewById(R.id.deletebutton);
-
+        delete = (Button)findViewById(R.id.dashbutton);
         add.setOnClickListener(this);
         delete.setOnClickListener(this);
-
         shoeList = (ListView) findViewById(R.id.listShoe);
-
-
         uID = user.getIdUser();
 
         adapt = new ShoesAdapter(this, returnList);
@@ -95,7 +89,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
             makeConnection();
             try {
 
-                String shoeQuery = ("SELECT * FROM sneakers WHERE idUser LIKE ?;");
+                String shoeQuery = ("SELECT * FROM sneaker WHERE userid LIKE ?;");
                 PreparedStatement updateShoes = con.prepareStatement(shoeQuery);
                 updateShoes.setInt(1, uID);
                 ResultSet shoeResult = updateShoes.executeQuery();
@@ -105,17 +99,17 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
                 int shoeid;
                 String sneakerName;
                 String colorway;
-                double price;
+                int price;
                 String condition;
                 int userid;
 
                 while (shoeResult.next()) {
-                    shoeid = shoeResult.getInt("idSneakers");
-                    sneakerName = shoeResult.getString("sneakerName").toUpperCase();
+                    shoeid = shoeResult.getInt("idsneaker");
+                    sneakerName = shoeResult.getString("sneakername").toUpperCase();
                     colorway = shoeResult.getString("colorway").toUpperCase();
-                    price = shoeResult.getDouble("price");
-                    condition = shoeResult.getString("condition").toUpperCase();
-                    userid = shoeResult.getInt("idUser");
+                    price = shoeResult.getInt("price");
+                    condition = shoeResult.getString("cond").toUpperCase();
+                    userid = shoeResult.getInt("userid");
                     shoes = new Shoes(shoeid, sneakerName, colorway, price, condition, userid);
                     returnList.add(shoes);
 
@@ -141,8 +135,10 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
                 i.putExtra("user", user);
                 startActivity(i);
                 break;
-            case R.id.deletebutton:
-
+            case R.id.dashbutton:
+                Intent i2 = new Intent(this, DashBoard.class);
+                i2.putExtra("user", user);
+                startActivity(i2);
                 break;
         }
     }

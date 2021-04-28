@@ -5,21 +5,9 @@
     android:id="@+id/ShoeLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff0033cc"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:padding="4dp" >
-
-
-    <TextView
-        android:id="@+id/view_profile_welcome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/view_profile_welcome"
-        android:textAlignment="center"
-        android:textColor="#ffff0000"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+    android:padding="4dp">
 
 
     <TextView
@@ -27,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:textColor="#ffff0000"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -44,11 +33,11 @@
             android:text="Add Shoe" />
 
         <Button
-            android:id="@+id/deletebutton"
+            android:id="@+id/dashbutton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Delete Shoe" />
+            android:text="Dashboard" />
 
     </LinearLayout>
 
