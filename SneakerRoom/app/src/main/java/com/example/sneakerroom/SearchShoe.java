@@ -7,6 +7,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,8 +38,13 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     private Thread t;
     private User user;
 
+    final int DashboardI = Menu.FIRST ;
+    final int Exit = Menu.FIRST + 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        user = (User)getIntent().getSerializableExtra("user");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_shoe_layout);
 
@@ -150,5 +157,35 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
         i.putExtra("shoe", shoe);
         i.putExtra("bool", true);
         startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuItem item1 = menu.add(0, DashboardI, Menu.NONE, "Dashboard");
+        MenuItem item2 = menu.add(0, Exit, Menu.NONE, "View Profile");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemID = item.getItemId();  //get id of menu item picked
+
+        switch (itemID) {
+            case DashboardI :
+                Intent i = new Intent(this, DashBoard.class);
+                i.putExtra("user", user);
+                startActivity(i);
+
+            case Exit :
+                Intent i2 = new Intent(this, ViewProfile.class);
+                i2.putExtra("user", user);
+                startActivity(i2);
+
+            default: super.onOptionsItemSelected(item);
+        }
+
+        return false;
     }
 }

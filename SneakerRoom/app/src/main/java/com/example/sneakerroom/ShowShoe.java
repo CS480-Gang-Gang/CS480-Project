@@ -43,8 +43,7 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
     private User usermain;
     Thread t = null;
 
-    final int DashboardI = Menu.FIRST ;
-    final int Exit = Menu.FIRST + 1;
+
 
 
 
@@ -167,35 +166,6 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
         }
     };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        super.onCreateOptionsMenu(menu);
-        MenuItem item1 = menu.add(0, DashboardI, Menu.NONE, "Dashboard");
-        MenuItem item2 = menu.add(0, Exit, Menu.NONE, "Exit");
-
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int itemID = item.getItemId();  //get id of menu item picked
-
-        switch (itemID) {
-            case DashboardI :
-                Intent i = new Intent(this, DashBoard.class);
-                i.putExtra("user", u);
-                startActivity(i);
-
-            case Exit : finish();
-
-            default: super.onOptionsItemSelected(item);
-        }
-
-        return false;
-    }
 
     @Override
     public void onClick(View v) {

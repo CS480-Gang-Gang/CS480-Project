@@ -139,7 +139,7 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
 
         super.onCreateOptionsMenu(menu);
         MenuItem item1 = menu.add(0, SearchShoeI, Menu.NONE, "SearchShoe");
-        MenuItem item2 = menu.add(0, Exit, Menu.NONE, "Exit");
+        MenuItem item2 = menu.add(0, Exit, Menu.NONE, "Dashboard");
 
 
         return true;
@@ -157,7 +157,10 @@ public class ViewProfile extends AppCompatActivity implements View.OnClickListen
                 startActivity(i);
                 return true;
 
-            case Exit : finish();
+            case Exit :
+                Intent i2 = new Intent(this, DashBoard.class);
+                i2.putExtra("user", user);
+                startActivity(i2);
 
             default: super.onOptionsItemSelected(item);
         }
