@@ -120,6 +120,9 @@ public class SearchShoe extends AppCompatActivity implements AdapterView.OnItemC
     @Override
     //Search the DB for the shoe name
     public void onClick(View view) {
+        for (int i = 0; i < returnList.size(); i++) {
+            returnList.remove(i);
+        }
         shoeN = "%" + shoeName.getText().toString() + "%";
         t = new Thread(findShoe);
         t.start();

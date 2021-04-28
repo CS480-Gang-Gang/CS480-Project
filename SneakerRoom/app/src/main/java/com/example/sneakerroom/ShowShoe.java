@@ -27,6 +27,8 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
 
     private TextView userTitle;
     private TextView user;
+    private TextView userTitleInfo;
+
     private Button maps;
     private Button sms;
     private Button dial;
@@ -36,21 +38,26 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
     private String URL;
     private int userID;
     private User u;
+    private User usermain;
     Thread t = null;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_shoe_layout);
-
+        u = (User)getIntent().getSerializableExtra("user");
+        usermain = (User)getIntent().getSerializableExtra("userShoe");
         name = (TextView)findViewById(R.id.sneaker_name);
         price = (TextView)findViewById(R.id.sneaker_price);
         colorway = (TextView)findViewById(R.id.sneaker_colorway);
         condition = (TextView)findViewById(R.id.sneaker_condition);
-
+        userTitleInfo = (TextView)findViewById(R.id.user_title_info);
         userTitle = (TextView)findViewById(R.id.textViewUser);
         user = (TextView)findViewById(R.id.shoe_user_name);
+
+
         maps = (Button)findViewById(R.id.maps);
         maps.setOnClickListener(this);
         sms = (Button)findViewById(R.id.sms);
@@ -69,6 +76,7 @@ public class ShowShoe extends AppCompatActivity implements View.OnClickListener 
         userID = shoe.getUserID();
 
         if (bool == false) {
+            userTitleInfo.setVisibility(View.INVISIBLE);
             userTitle.setVisibility(View.INVISIBLE);
             user.setVisibility(View.INVISIBLE);
             maps.setVisibility(View.INVISIBLE);

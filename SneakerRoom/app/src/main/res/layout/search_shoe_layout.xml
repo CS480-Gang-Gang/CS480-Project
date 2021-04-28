@@ -5,9 +5,9 @@
     android:id="@+id/ShoeLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff0033cc"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:padding="4dp" >
+    android:padding="4dp">
 
 
     <LinearLayout
@@ -44,7 +44,7 @@
             android:gravity="center"
             android:text="Shoe Name"
             android:textSize="18dip"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView2"
@@ -54,7 +54,7 @@
             android:gravity="center"
             android:text="Price"
             android:textSize="18dip"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView3"
@@ -64,7 +64,7 @@
             android:gravity="center"
             android:text="Colorway"
             android:textSize="18dip"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView4"
@@ -74,7 +74,7 @@
             android:gravity="center"
             android:text="Condition"
             android:textSize="18dip"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
