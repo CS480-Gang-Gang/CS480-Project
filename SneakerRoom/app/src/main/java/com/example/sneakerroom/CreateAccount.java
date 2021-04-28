@@ -139,7 +139,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
                     throw new InterruptedException();
                 } else {
                     String insertUserQ = "INSERT INTO user " +
-                            "(idUser, firstName, lastName, address, city, state, zip, username, password, phonenum) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                            "(idUser, firstName, lastName, address, city, state, zip, username, password, phonenum) VALUES (?,?,?,?,?,?,?,?,?,?);";
                     PreparedStatement addUser = con.prepareStatement(insertUserQ);
                     addUser.setInt(1, uID);
                     addUser.setString(2, fN);

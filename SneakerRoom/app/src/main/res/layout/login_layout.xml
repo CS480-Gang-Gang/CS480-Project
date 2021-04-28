@@ -9,25 +9,12 @@
     android:orientation="vertical"
     android:padding="4dp" >
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/simple_anim"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView android:id="@+id/simple_anim"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/login_welcome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Log In"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="45sp"
-        android:textStyle="bold" />
+        android:layout_height="90dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center" />
 
 
     <LinearLayout
@@ -109,7 +96,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="150dp"
             android:gravity="center"
             android:text="Don't have an account? Click here to make one!"
             android:textColor="@color/black"
@@ -121,10 +107,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:text="Create Account"
             android:background="@color/black"
+            android:gravity="center"
+            android:text="Create Account"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>

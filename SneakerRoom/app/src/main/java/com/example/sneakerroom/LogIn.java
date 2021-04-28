@@ -72,8 +72,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
 
         Timer t = new Timer();
         t.schedule(start, 1000);
-        Timer t2 = new Timer();
-        t2.schedule(stop, 5000);
+        //Timer t2 = new Timer();
+        //t2.schedule(stop, 9950);
 
         speaker = new TextToSpeech(this, this);
 
@@ -143,6 +143,13 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
         public void run() {
             makeToast(message);
             if (isGood == true) {
+                speak(message);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                speaker.stop();
                 startDash();
                 finish();
             }
@@ -179,8 +186,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
                     if(p.equals(pass)) {
                         isGood = true;
                         message = "Account Logged in";
-                        speak("Signed In");
-                        speaker.stop();
                         int uID = account.getInt("idUser");
                         String fName = account.getString("firstName");
                         String lName = account.getString("lastName");
@@ -195,8 +200,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener, Te
                         con.close();
                     } else {
                         message = "Password Not Recognized, try again";
-                        speak("Sign in Failed.");
-                        speaker.stop();
                         handler.post(toUI);
                         con.close();
                     }

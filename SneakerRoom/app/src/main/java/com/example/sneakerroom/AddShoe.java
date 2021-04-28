@@ -110,32 +110,37 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
 
             try {
                 String shoeCountQuery = ("SELECT * FROM sneakers;");
-                Log.e("NumberFormatException", "Here");
+
                 PreparedStatement cQ = con.prepareStatement(shoeCountQuery);
-                Log.e("NumberFormatException", "Here");
+
                 ResultSet shoes = cQ.executeQuery();
-                Log.e("NumberFormatException", "Here");
+
                 Thread.sleep(1000);
                 while(shoes.next()){
                     int i = shoes.getInt("idSneakers");
                     u.add(i);
                 }
                 sID = u.size()+1;
-                Log.e("NumberFormatException", "Here");
-                //u = new ArrayList<Integer>();
+
+                u = new ArrayList<Integer>();
+
 
                 String insertUserQ = "INSERT INTO sneakers " +
                         "(idSneakers, sneakerName, colorway, price, condition, idUser) VALUES (?,?,?,?,?,?)";
+                Log.e("Yeet", "Here");
                 PreparedStatement addShoe = con.prepareStatement(insertUserQ);
+                Log.e("Yeet", "Here");
                 addShoe.setInt(1, sID);
                 addShoe.setString(2, sName);
                 addShoe.setString(3, sColorway);
                 addShoe.setDouble(4, sPrice);
                 addShoe.setString(5, sCondition);
                 addShoe.setInt(6, uID);
+
                 addShoe.executeUpdate();
                 message = "Added " + sName + " to the system";
                 Log.e("New Shoe", "Added Shoe " + sName + " to the system.");
+                con.close();
                 isGood = true;
                 handler.post(toUI);
                 //Log.e("JDBC", "Ran query");
@@ -149,7 +154,6 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
-
     };
 
     @Override
@@ -159,6 +163,13 @@ public class AddShoe extends AppCompatActivity implements View.OnClickListener {
         sPrice = Double.parseDouble(price.getText().toString());
         sCondition = condition.getText().toString();
         uID = user.getIdUser();
+        Log.e("Yes", sName + "");
+        Log.e("Yes", sColorway + "");
+        Log.e("Yes", sPrice + "");
+        Log.e("Yes", sCondition + "");
+        Log.e("Yes", uID + "");
+
+
 
         t = new Thread(addShoe);
         t.start();
